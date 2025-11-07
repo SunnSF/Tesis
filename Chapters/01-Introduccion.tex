@@ -1,0 +1,155 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+  
+\chapter{Introduccion}
+
+\section{Antecedentes}
+A lo largo de la historia, el ser humano ha buscado constantemente optimizar sus actividades, especialmente aquellas que implican desplazarse entre diferentes ubicaciones. Como seres racionales, procuramos completar nuestras tareas en el menor tiempo posible, ya que el tiempo constituye un recurso limitado e irrecuperable. 
+
+Imagine que una persona desea visitar $44$ lugares distribuidos en el mundo, representados como puntos sobre un mapa, y que su objetivo es recorrer la ruta más corta posible que conecte todos estos puntos, partiendo y regresando al punto inicial. Este tipo de problema es conocido como el \textit{Traveling Salesman Problem} (TSP), o Problema del Viajero, el cual consiste en determinar, dado un conjunto de ubicaciones y las distancias entre ellas, la ruta de costo mínimo que visite cada una de dichas ubicaciones exactamente una vez antes de retornar al punto de partida \parencite{russell2021artificial}.
+
+En el contexto boliviano, la distribución de bienes y servicios esenciales constituye una de las actividades más críticas tanto para la economía como para la vida cotidiana de la población. Diversos sectores —desde pequeñas panaderías familiares hasta grandes industrias lácteas y plataformas de entrega a domicilio— enfrentan el desafío constante de planificar rutas de distribución de manera eficiente. Estas actividades comparten una característica común: la necesidad de visitar múltiples destinos en el menor tiempo posible y utilizando los recursos de manera racional, lo que corresponde directamente al planteamiento del TSP.
+
+Un ejemplo claro se observa en las panaderías locales, que deben distribuir pan fresco cada mañana a tiendas, mercados y colegios. Si las rutas se planifican de manera empírica, los costos en combustible, tiempo y mano de obra aumentan significativamente. De forma similar, empresas como PIL Andina y productores locales deben garantizar la entrega diaria de leche fresca a miles de puntos de venta, donde la puntualidad y la conservación del producto son esenciales. De igual modo, los servicios de delivery, impulsados por plataformas como PedidosYa o Yaigo, requieren una logística optimizada para asignar pedidos y maximizar la eficiencia de los repartidores.
+
+De acuerdo con el Instituto Nacional de Estadística (INE, 2023), Bolivia cuenta con más de $2{,}3$ millones de vehículos registrados, de los cuales una parte importante se destina al transporte y distribución de productos. Asimismo, se estima la existencia de más de $8{,}000$ panaderías y pastelerías registradas, junto a miles de microempresas dedicadas a la producción y comercialización de alimentos, muchas de ellas sin herramientas tecnológicas de optimización. Esta realidad se traduce en rutas ineficientes, altos costos operativos y una menor competitividad empresarial.
+
+\section{Definición del Problema}
+
+Las rutas de distribución mal optimizadas, generan un costo operativo mayor, fomentan el mal uso del tiempo, pero sobre todo tienen un impacto aun mayor en la contaminación ambiental.
+
+\subsection{Árbol de Problemas}
+\begin{figure}[h]
+\centering
+\shorthandoff{>} % ← DESACTIVA el shorthand problemático
+\shorthandoff{<} % ← DESACTIVA también < por si acaso
+\begin{tikzpicture}[
+    problem/.style={ellipse, draw, fill=red!30, minimum width=3.5cm, minimum height=1.5cm, text width=3cm, align=center, font=\bfseries\large, text=white, line width=1.2pt},
+    effect/.style={rectangle, draw, fill=blue!25, rounded corners=5pt, minimum width=3cm, minimum height=1cm, text width=2.5cm, align=center, font=\bfseries, line width=1pt},
+    cause/.style={rectangle, draw, fill=green!25, rounded corners=5pt, minimum width=3cm, minimum height=1cm, text width=2.5cm, align=center, font=\bfseries, line width=1pt},
+    arrow/.style={->, >=stealth, line width=1pt, shorten >=2pt, shorten <=2pt},
+    label/.style={font=\large\bfseries, text=gray!70}
+]
+
+% PROBLEMA PRINCIPAL (centro)
+\node[problem] (problema) {\footnotesize\textit{Falta de optimizacion en la planificacion de rutas de distribucion de productos}};
+
+% EFECTOS (parte superior - 4 nodos)
+\node[effect, above left=2.5cm and 3.5cm of problema] (efecto1) {\\\footnotesize\textit{Mayor contaminación ambiental}};
+\node[effect, above left=2.5cm and -1cm of problema] (efecto2) {\\\footnotesize\textit{Mala inversión de tiempo}};
+\node[effect, above right=2.5cm and -1cm of problema] (efecto3) {\\\footnotesize\textit{Insatisfacción de clientes}};
+\node[effect, above right=2.5cm and 3.5cm of problema] (efecto4) {\\\footnotesize\textit{Costos operativos elevados}};
+
+% CAUSAS (parte inferior - 4 nodos)
+\node[cause, below left=2.5cm and 3.5cm of problema] (causa1) {\\\footnotesize\textit{Mayor consumo contaminantes}};
+\node[cause, below left=2.5cm and -1cm of problema] (causa2) {\\\footnotesize\textit{Planificación empírica}};
+\node[cause, below right=2.5cm and -1cm of problema] (causa3) {\\\footnotesize\textit{Demora en entregas}};
+\node[cause, below right=2.5cm and 3.5cm of problema] (causa4) {\\\footnotesize\textit{Rutas no optimizadas}};
+
+% CONEXIONES (efectos → problema)
+\draw[arrow, color=blue!70] (problema) -- (efecto1);
+\draw[arrow, color=blue!70] (problema) -- (efecto2);
+\draw[arrow, color=blue!70] (problema) -- (efecto3);
+\draw[arrow, color=blue!70] (problema) -- (efecto4);
+
+% CONEXIONES (problema → causas)
+\draw[arrow, color=green!70] (causa1) -- (problema);
+\draw[arrow, color=green!70] (causa2) -- (problema);
+\draw[arrow, color=green!70] (causa3) -- (problema);
+\draw[arrow, color=green!70] (causa4) -- (problema);
+
+% ETIQUETAS
+% ETIQUETAS CENTRADAS
+\node[label, above=1.2cm of problema] {EFECTOS};
+\node[label, below=1.2cm of problema] {CAUSAS};
+
+% Líneas de guía (opcional)
+\begin{scope}[on background layer, gray!20, line width=0.5pt]
+\draw[dashed] (efecto1) -- (efecto2);
+\draw[dashed] (efecto2) -- (efecto4);
+\draw[dashed] (efecto4) -- (efecto3);
+\draw[dashed] (efecto3) -- (efecto1);
+\draw[dashed] (causa1) -- (causa2);
+\draw[dashed] (causa2) -- (causa4);
+\draw[dashed] (causa4) -- (causa3);
+\draw[dashed] (causa3) -- (causa1);
+\end{scope}
+
+\end{tikzpicture}
+\shorthandon{>} % ← REACTIVA el shorthand
+\shorthandon{<} % ← REACTIVA también <
+\caption{Análisis de causas y efectos}
+\label{fig:arbol_problemas}
+\end{figure}
+
+\section{Objetivo}
+
+\subsection{Objetivo General}
+
+Implementar un sistema web para la optimizacion de rutas de destribucion de productos, basado en agentes inteligentes.
+
+\subsection{Objetivos Específicos}
+
+\begin{enumerate}
+  \item Permitir la atualizacion de lugares o ubicaciones de distribucion.
+  \item Calcular la ruta optima de acuerdo a la seleccion de lugares.
+  \item Proporcionar mapas que permitan seleccionar los puntos o lugares a visitar.
+  \item Proporcionar un historial de rutas generadas.
+  \item Generar visualización de las rutas en un mapa digital para facilitar la interpretación por parte del personal de reparto.
+  \item permitir descargar la ruta optimizada en formatos comunes como PDF o imagen.
+  
+\end{enumerate}
+
+\section{Area de conocimiento}
+
+\begin{itemize}
+  \item Area: Inteligencia Artificial
+\end{itemize}
+
+\section{Alcance}
+
+\begin{enumerate}
+  \item El sistema contemplará la optimización de rutas para un conjunto de puntos de entrega, considerando la minimización de distancia/tiempo total.
+
+   \item El sistema contemplará la visualización de la mejor ruta encontrada mediante una representación gráfica de los nodos(ubicaciones) y aristas(distancias/tiempo) en un mapa y en formato tabular (listado de nodos visitados y no visitados aun).
+
+   \item El sistema mostrara visualmente el proceso de obtencion de la ruta mas optima.
+
+   \item El desarrollo no incluirá funciones de GPS en tiempo real ni seguimiento satelital.
+
+   \item El sistema no será de uso móvil, se enfocará en entorno web.
+
+   \item El proyecto no abarcará problemas de tráfico en tiempo real, solo escenarios estáticos de distribución.
+
+   \item No generará planificación en tiempo real para múltiples repartidores (solo un agente global que optimiza un recorrido).
+\end{enumerate}
+
+\section{Justificación}
+
+La distribución de productos constituye una de las actividades logísticas más relevantes dentro de las cadenas de suministro modernas. En Bolivia, muchas empresas y microemprendimientos dependen de procesos de entrega eficientes para garantizar la calidad de sus servicios y mantener su competitividad. Sin embargo, gran parte de estas operaciones se desarrollan de manera empírica, sin el apoyo de herramientas tecnológicas que permitan optimizar el uso de recursos y minimizar los costos asociados al transporte.
+
+En primer lugar, un \textbf{sistema web para la optimización de rutas de distribución en entornos complejos, basado en agentes inteligentes} ofrece una solución tecnológica adaptable a las condiciones del mercado local, permitiendo que empresas de diferentes tamaños puedan planificar sus rutas de manera eficiente y con acceso a través de cualquier dispositivo con conexión a internet. En segundo lugar, el uso de técnicas de inteligencia artificial —particularmente la simulación mediante agentes inteligentes— proporciona un enfoque flexible y dinámico para resolver el \textit{Traveling Salesman Problem} (TSP).
+
+Desde el punto de vista económico, la implementación de un sistema de este tipo permite reducir significativamente los costos operativos relacionados con el consumo de combustible, mantenimiento vehicular y horas laborales. Socialmente, contribuye al desarrollo sostenible, ya que una mejor planificación de rutas implica una reducción de emisiones de dióxido de carbono y un aprovechamiento más racional de los recursos energéticos.
+
+Finalmente, la propuesta se alinea con las necesidades actuales de modernización tecnológica en Bolivia, fomentando la incorporación de herramientas inteligentes en sectores productivos y logísticos. De este modo, el proyecto no solo aporta una solución práctica a un problema recurrente, sino que también promueve la innovación y la competitividad en el entorno empresarial nacional.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

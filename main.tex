@@ -1,0 +1,80 @@
+\documentclass[11pt, letterpaper]{report}
+
+% --- Paquetes base ---
+\usepackage{tesisxd}        % Tu estilo propio
+\usepackage{subfiles}       % Para subarchivos
+\usepackage{booktabs}       % Tablas elegantes
+\usepackage{enumitem}       % Listas personalizables
+\usepackage{rotating}       % Para tablas/figuras giradas
+\usepackage{tabularx}       % Tablas anchas
+\usepackage{array}          % Formato avanzado de columnas
+\usepackage{ragged2e}       % Alineación de texto
+\usepackage{float}          % Posicionamiento de figuras/tablas
+\usepackage{fontspec}       % Necesario para LuaLaTeX
+\usepackage[most]{tcolorbox} % Cuadros de color y estilos
+
+% --- Bibliografía ---
+\usepackage[backend=biber, style=apa]{biblatex} % <-- clave: BibLaTeX + Biber
+\addbibresource{references.bib}                 % Tu archivo .bib
+
+\begin{document}
+
+% -----------------------------
+% Portada
+% -----------------------------
+\pagenumbering{gobble} % Sin números de página
+\pagestyle{empty}      % Sin encabezados ni pies
+\begin{titlepage}
+    \subfile{Cover/cover}
+\end{titlepage}
+
+% -----------------------------
+% Dedicatoria
+% -----------------------------
+\cleardoublepage
+\subfile{FrontMatter/dedicatoria}
+
+% -----------------------------
+% Agradecimientos
+% -----------------------------
+\cleardoublepage
+\subfile{FrontMatter/agradecimientos}
+
+% -----------------------------
+% Resumen
+% -----------------------------
+\cleardoublepage
+\subfile{FrontMatter/resumen}
+
+% -----------------------------
+% Índices
+% -----------------------------
+\cleardoublepage
+\tableofcontents
+\cleardoublepage
+\listoffigures
+\cleardoublepage
+\listoftables
+
+% -----------------------------
+% Capítulos
+% -----------------------------
+\cleardoublepage
+\pagenumbering{arabic} % Números de página arábigos
+\pagestyle{fancy}      % Activa fancyhdr
+
+% Asegura que páginas plain (p. ej., capítulo) usen fancyhdr
+\makeatletter
+\let\ps@plain\ps@fancy
+\makeatother
+
+\subfile{Chapters/01-Introduccion}
+\subfile{Chapters/02-Marco-Teorico}
+
+% -----------------------------
+% Bibliografía
+% -----------------------------
+\cleardoublepage
+\printbibliography
+
+\end{document}
