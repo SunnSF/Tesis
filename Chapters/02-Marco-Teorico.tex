@@ -2,6 +2,288 @@
 
 \begin{document}
 \chapter{Marco Teorico}
-\section{Area de conocimiento}
+
+\section{Área de Conocimiento}
+
+\subsection{Definición}
+
+El área de conocimiento correspondiente a este proyecto se sitúa dentro de la 
+optimización combinatoria, específicamente en el estudio y aplicación del 
+\textit{Problema del Viajante} (TSP, por sus siglas en inglés), considerado uno 
+de los problemas más representativos dentro de la teoría de grafos y la 
+optimización NP-dura \parencite{lawler1985}. 
+
+El TSP consiste en determinar la ruta de costo mínimo que permite a un agente 
+visitar un conjunto de nodos exactamente una vez y retornar al punto de 
+origen. Pese a su formulación sencilla, la cantidad de soluciones posibles 
+crece factorialmente conforme aumenta el número de nodos, lo que impide la 
+búsqueda exhaustiva para instancias grandes. Por ello, su resolución práctica 
+depende de heurísticas, metaheurísticas y técnicas basadas en inteligencia 
+artificial.
+
+El TSP posee una amplia aplicabilidad en logística, transporte, robótica, 
+sistemas de entrega y planificación de rutas. Por esta razón, constituye el 
+fundamento teórico del sistema de optimización desarrollado en este proyecto.
+
+\subsection{Características del área}
+
+El estudio del TSP presenta varias características distintivas:
+
+\begin{itemize}
+    \item \textbf{Alta complejidad computacional.} El número de rutas posibles 
+    crece como $(n-1)!/2$, lo cual obliga al uso de algoritmos aproximados.
+    
+    \item \textbf{Dependencia de modelos matemáticos formales.} El problema se 
+    modela mediante grafos completos, matrices de distancias y funciones de 
+    costo.
+
+    \item \textbf{Uso de datos geoespaciales.} Para aplicaciones reales se 
+    requieren coordenadas, distancias reales y sistemas de geocodificación.
+
+    \item \textbf{Aprovechamiento de la inteligencia colectiva.} Métodos como 
+    \textit{Ant Colony Optimization} (ACO) utilizan múltiples agentes que 
+    cooperan para encontrar rutas eficientes \parencite{dorigo1999}.
+    
+    \item \textbf{Amplia aplicabilidad.} El TSP sirve como base para problemas 
+    reales de planificación de rutas con restricciones adicionales.
+\end{itemize}
+
+\subsection{Elementos, Fases y Proceso}
+
+El proceso general dentro del área de conocimiento involucra varios elementos 
+fundamentales:
+
+\subsubsection{Representación del problema}
+
+Se definen los nodos, la matriz de distancias y el grafo completo que modela 
+el espacio de búsqueda. Esta representación permite evaluar el costo de una 
+ruta y determinar mejoras posibles.
+
+\subsubsection{Obtención y preparación de datos}
+
+Incluye la geocodificación, normalización de direcciones, cálculo de distancias 
+reales mediante plataformas cartográficas, y verificación de datos para evitar 
+inconsistencias que afecten la calidad de la solución.
+
+\subsubsection{Generación de una solución inicial}
+
+El proceso comienza con una ruta preliminar obtenida mediante heurísticas como 
+vecino más cercano, inserción secuencial o construcción aleatoria controlada.
+
+\subsubsection{Optimización mediante agentes inteligentes}
+
+Métodos inspirados en comportamiento colectivo, como ACO, permiten que varios 
+agentes exploren rutas, depositen información (feromonas) y converjan hacia 
+soluciones de menor costo. Estos procesos logran un equilibrio entre 
+exploración y explotación \cite{dorigo1999}.
+
+\subsubsection{Evaluación y selección de rutas}
+
+Se consideran métricas como: costo total de la ruta, distancia recorrida, 
+tiempo estimado, estabilidad de resultados y mejora respecto a la solución 
+inicial.
+
+\subsubsection{Visualización y despliegue}
+
+El resultado final se integra en la plataforma web mediante visualización de la 
+ruta óptima, distancia total y orden de visitas, permitiendo su uso operativo.
+
+\subsection{Herramientas y Tecnologías del Área}
+
+El estudio y aplicación del TSP emplea diversas herramientas:
+
+\begin{itemize}
+    \item \textbf{Matemáticas y optimización:} heurísticas (2-opt, 3-opt), 
+    metaheurísticas (ACO, recocido simulado), y solvers especializados.
+    
+    \item \textbf{Mapas y geocodificación:} Google Maps API, OpenStreetMap, 
+    GraphHopper.
+
+    \item \textbf{Tecnologías web:} frameworks como Django, Node.js o Flask 
+    para la implementación del sistema.
+
+    \item \textbf{Simulación:} entornos para validar rutas y comparar 
+    resultados con distintos parámetros.
+\end{itemize}
+
+
+\section{Metodología Estructurada}
+
+\subsection{2.2.1 Definición}
+
+La metodología estructurada es un enfoque formal para el desarrollo de sistemas de información, basado en la descomposición lógica y secuencial de procesos. Su propósito central es guiar la construcción de un sistema mediante fases claramente delimitadas, cada una con actividades, productos y criterios de control específicos. Este enfoque se apoya en la representación del sistema mediante modelos gráficos, especificaciones funcionales precisas y documentación exhaustiva, lo que permite asegurar coherencia en el diseño y minimizar inconsistencias a lo largo del proyecto. 
+
+Autores como Yourdon \parencite{yourdon1989structured} y DeMarco \parencite{demarco1978structured} establecen que la metodología estructurada proporciona un marco disciplinado para analizar problemas complejos y transformarlos en soluciones lógicas que pueden implementarse de manera confiable. Debido a estas características, resulta adecuada para sistemas que requieren un comportamiento bien definido, como los sistemas de optimización basados en algoritmos determinísticos, por ejemplo, los empleados para resolver variantes del Problema del Viajante (TSP).
+
+\subsection{2.2.2 Características}
+
+La metodología estructurada posee características distintivas que la diferencian de otros enfoques de desarrollo:
+
+\begin{itemize}
+    \item \textbf{Secuencialidad lógica:} el proceso de desarrollo se organiza en fases que avanzan de manera lineal, desde la identificación del problema hasta la implementación.
+    \item \textbf{Modelación gráfica:} hace uso de diagramas de flujo, diagramas de estructura, modelos funcionales y otras herramientas de representación visual.
+    \item \textbf{Documentación exhaustiva:} cada fase genera artefactos que respaldan las decisiones técnicas y permiten la trazabilidad del proceso.
+    \item \textbf{Orientación funcional:} el sistema se descompone en funciones y subfunciones, facilitando su comprensión y posterior implementación.
+    \item \textbf{Precisión en los requisitos:} exige una definición clara y completa de requisitos antes de diseñar o implementar.
+    \item \textbf{Control y verificabilidad:} permite establecer puntos de control que aseguran la calidad y consistencia del sistema en construcción.
+\end{itemize}
+
+
+\subsection{2.2.3 Proceso}
+
+
+Diversos autores destacan que los métodos estructurados siguen un proceso secuencial compuesto por fases claramente delimitadas.\parencite{demarco1978structured} describe el desarrollo de sistemas mediante un flujo lineal basado en análisis, diseño y construcción. De forma similar, Yourdon \
+\parencite{yourdon1989structured} establece que la metodología estructurada se organiza en actividades progresivas que transforman un conjunto de requisitos en un sistema implementable. Kendall y Kendall también presentan un proceso comparable, compuesto por análisis, diseño, implementación y mantenimiento. \parencite{kendall2014systems}
+
+A partir de estos enfoques clásicos, el proceso adoptado se estructura en las siguientes fases:
+
+\subsubsection*{a) Análisis}
+
+Consiste en comprender el problema, identificar los requisitos y modelar el funcionamiento actual del sistema. DeMarco señala que esta fase constituye la base del desarrollo, ya que define el alcance funcional y los datos requeridos. En esta etapa se especifican los procesos, restricciones y parámetros necesarios para el algoritmo de optimización.\parencite{demarco1978structured}
+
+\subsubsection*{b) Diseño}
+
+Implica transformar los requisitos en una solución lógica y técnica. Yourdon \parencite{yourdon1989structured} establece que el diseño estructurado contempla la definición de diagramas de estructura, especificaciones modulares y la organización funcional del sistema. Aquí se construyen los modelos del algoritmo, la arquitectura del sistema y la estructura de datos.
+
+\subsubsection*{c) Desarrollo o Implementación}
+
+En esta fase se lleva a cabo la construcción del sistema según el diseño previo. Kendall y Kendall \parencite{kendall2014systems} indican que la implementación materializa los modelos lógicos en componentes operativos mediante programación, integración y configuración.
+
+\subsubsection*{d) Pruebas}
+
+Su propósito es asegurar que el sistema funcione correctamente y cumpla los requisitos establecidos. Pressman y Maxim \parencite{pressman2014software} destacan que esta fase comprende pruebas unitarias, de integración, funcionales y de rendimiento, permitiendo validar la calidad del software y detectar errores.
+
+\subsubsection*{e) Documentación y Mantenimiento}
+
+Incluye la elaboración de manuales y la preservación del sistema a lo largo del tiempo. According to Kendall and Kendall \parencite{kendall2014systems}, el mantenimiento permite efectuar ajustes, corregir problemas y mejorar funcionalidades, garantizando la continuidad operativa del sistema.
+
+\begin{itemize}
+    \item Proporciona un proceso claro y ordenado, adecuado para sistemas que requieren precisión en las especificaciones.
+    \item Facilita la construcción de modelos matemáticos y algoritmos de optimización debido a su enfoque de descomposición funcional.
+    \item Permite mantener un alto nivel de control y trazabilidad sobre cada fase del desarrollo.
+    \item Favorece la integración entre el análisis del problema, el diseño del sistema y la implementación del algoritmo.
+    \item Mejora la calidad del software final al incluir mecanismos de validación y verificación formales.
+    \item Reduce riesgos de inconsistencias al exigir documentación detallada.
+\end{itemize}
+
+\section{Plataforma de Desarrollo}
+
+\subsection{Definición}
+
+Django es un framework de desarrollo web escrito en Python, diseñado para 
+facilitar la creación de aplicaciones robustas, escalables y seguras mediante 
+un enfoque basado en la reutilización de componentes, el principio ``DRY'' 
+(Don't Repeat Yourself) y estructuras predeterminadas que simplifican el 
+desarrollo. Según Holovaty y Kaplan-Moss (2009), Django implementa el patrón 
+arquitectónico Modelo–Vista–Template (MVT), lo que permite una separación 
+clara de responsabilidades dentro del sistema y favorece un flujo de trabajo 
+ordenado para aplicaciones orientadas a datos.
+
+\subsection{Características}
+
+Entre las principales características de Django se destacan:
+
+\begin{itemize}
+    \item \textbf{Patrón MVT}: organiza la lógica del sistema en modelos, vistas y plantillas, lo que mejora la mantenibilidad.
+    \item \textbf{ORM integrado}: permite interactuar con la base de datos mediante objetos en lugar de consultas SQL explícitas.
+    \item \textbf{Sistema de autenticación}: gestiona usuarios, sesiones y permisos de manera nativa.
+    \item \textbf{Seguridad incorporada}: protege contra ataques comunes como XSS, CSRF, inyección SQL y clickjacking.
+    \item \textbf{Escalabilidad}: adecuado para proyectos medianos y grandes con crecimiento progresivo.
+    \item \textbf{Compatibilidad con librerías científicas}: facilita la inclusión de módulos de inteligencia artificial y optimización gracias al ecosistema de Python.
+\end{itemize}
+
+\subsection{Ventajas}
+
+Para el presente proyecto, Django ofrece ventajas específicas:
+
+\begin{itemize}
+    \item \textbf{Integración con algoritmos de optimización}: al estar basado en Python, permite incorporar de forma nativa librerías como \texttt{NetworkX}, \texttt{NumPy} o \texttt{OR-Tools}, necesarias para resolver el TSP mediante agentes inteligentes.
+    \item \textbf{Gestión eficiente de datos espaciales}: su compatibilidad con PostgreSQL/PostGIS mejora el manejo de coordenadas y distancias geográficas requeridas para generar rutas óptimas.
+    \item \textbf{Desarrollo acelerado y estructurado}: su esquema modular posibilita construir interfaces web estables para la visualización de rutas y resultados.
+    \item \textbf{Seguridad y fiabilidad}: garantiza que los procesos de cálculo y acceso a la información se ejecuten dentro de una plataforma protegida contra vulnerabilidades comunes.
+\end{itemize}
+
+\section{Administrador de la Base de Datos (SGBD)}
+
+\subsection{Definición}
+
+PostgreSQL es un sistema de gestión de bases de datos relacional 
+orientado a objetos (ORDBMS), reconocido por su robustez, estabilidad y 
+adhesión a los estándares SQL. Su diseño permite manejar grandes 
+volúmenes de información con integridad transaccional y alta 
+confiabilidad (The PostgreSQL Global Development Group, 2024). La 
+extensión PostGIS añade soporte geoespacial avanzado, posibilitando la 
+manipulación de geometrías y la ejecución de consultas espaciales, lo 
+cual es fundamental en aplicaciones que gestionan rutas y coordenadas.
+
+\subsection{Características}
+
+Las características más relevantes para el proyecto son:
+
+\begin{itemize}
+    \item \textbf{Soporte ACID}: asegura integridad y consistencia en todas las operaciones.
+    \item \textbf{PostGIS}: permite almacenar puntos, líneas y realizar cálculos geoespaciales como distancias, buffers o intersecciones.
+    \item \textbf{Alta escalabilidad}: maneja grandes conjuntos de datos sin afectar el rendimiento.
+    \item \textbf{Compatibilidad con Django}: integración directa mediante su ORM.
+    \item \textbf{Índices avanzados}: como GiST y SP-GiST, útiles para consultas de rutas o puntos en mapas.
+    \item \textbf{Extensibilidad}: admite funciones personalizadas y tipos de datos definidos por el usuario.
+\end{itemize}
+
+\subsection{Ventajas}
+
+Las ventajas de utilizar PostgreSQL con PostGIS en el sistema son:
+
+\begin{itemize}
+    \item \textbf{Optimización espacial integrada}: permite calcular distancias entre clientes y puntos de entrega sin recurrir a servicios externos.
+    \item \textbf{Alto rendimiento}: elimina la sobrecarga de cálculos geográficos en el servidor web.
+    \item \textbf{Precisión en datos georreferenciados}: fundamental para el cálculo del TSP y la construcción del grafo de rutas.
+    \item \textbf{Consistencia de datos operativos}: imprescindible para almacenar clientes, órdenes y puntos clave de la distribución.
+\end{itemize}
+
+\section{Herramientas}
+
+\subsection{Definición}
+
+Las herramientas corresponden a los lenguajes, librerías, servicios y 
+componentes tecnológicos que permiten implementar las funcionalidades del 
+sistema. Incluyen tanto herramientas de desarrollo frontend y backend, 
+como librerías especializadas en optimización y análisis geográfico. En 
+el presente proyecto, estas herramientas permiten la construcción de la 
+interfaz web, la implementación del modelo de agentes inteligentes y el 
+cálculo de rutas óptimas.
+
+\subsection{Características}
+
+Entre las características de las herramientas empleadas destacan:
+
+\begin{itemize}
+    \item \textbf{Python}: lenguaje interpretado, flexible y ampliamente utilizado en optimización.
+    \item \textbf{JavaScript}: permite interacción dinámica en el navegador.
+    \item \textbf{Google Maps API}: facilita la visualización de rutas y marcadores geográficos.
+    \item \textbf{NetworkX}: permite modelar grafos y aplicar algoritmos relacionados con el TSP.
+    \item \textbf{OR-Tools}: librería de Google orientada a la resolución de problemas combinatorios.
+    \item \textbf{Bootstrap}: framework CSS para el diseño responsivo del frontend.
+\end{itemize}
+
+\subsection{Aplicación en el proyecto}
+
+Las herramientas aportan funcionalidades específicas:
+
+\begin{itemize}
+    \item \textbf{Python + Django}: permiten integrar la lógica de agentes inteligentes con la interfaz web.
+    \item \textbf{NetworkX}: modela el grafo del TSP para evaluar rutas posibles.
+    \item \textbf{Google Maps API}: representa visualmente la ruta óptima obtenida.
+    \item \textbf{PostGIS}: calcula distancias entre nodos directamente en la base de datos.
+    \item \textbf{Bootstrap y JavaScript}: mejoran la usabilidad del sistema de forma intuitiva.
+\end{itemize}
+
+\subsection{Beneficios para el desarrollo}
+
+\begin{itemize}
+    \item Integración fluida entre backend, optimización matemática y visualización geográfica.
+    \item Mayor precisión y eficiencia en cálculos de distancia.
+    \item Interfaz amigable para interpretar resultados de optimización.
+    \item Reducción del tiempo de desarrollo al utilizar librerías especializadas.
+\end{itemize}
   
 \end{document}
